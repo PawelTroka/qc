@@ -1,6 +1,8 @@
 QuickCheck: randomized testing made trivial
 ===========
 
+*Forked from https://github.com/Cue/qc to make it work with Python 3.*
+
 QuickCheck is a testing tool that lets you write *properties* that you expect to hold
 true, and let the computer generate randomized test cases to check that these properties
 actually hold. For example, if you have written `compress` and `decompress` functions for
