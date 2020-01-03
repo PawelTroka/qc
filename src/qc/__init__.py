@@ -2,8 +2,8 @@
 
 from qc.state import arbfun, reset
 from qc.arbitrary import name, nameUtf8, fromList
-import arbitrary as _arb
-import util as _util
+import qc.arbitrary as _arb
+import qc.util as _util
 
 import os, sys
 import itertools
@@ -15,7 +15,7 @@ def property(fn):
   QuickCheck test."""
   def test_property(*args, **kwargs):
     reset()
-    for _ in xrange(100):
+    for _ in range(100):
       fn(*args, **kwargs)
   test_property.__name__ = fn.__name__
   return test_property
@@ -27,13 +27,13 @@ def property(fn):
 
 
 @arbfun
-def int(low=(-sys.maxint-1), high=sys.maxint):
+def int(low=(-sys.maxsize-1), high=sys.maxsize):
   """An arbitrary integer."""
   return _arb.Int(low, high)
 
 
 @arbfun
-def long(low=(-sys.maxint*2), high=sys.maxint*2):
+def long(low=(-sys.maxsize*2), high=sys.maxsize*2):
   """An arbitrary long."""
   return _arb.Int(low, high)
 
@@ -45,7 +45,7 @@ def float(low=-10e10, high=10e10):
 
 
 @arbfun
-def randstr(length=None, maxlen=sys.maxint):
+def randstr(length=None, maxlen=sys.maxsize):
   """A random string, optionally with a constant or maximum length."""
   if length is not None:
     return (os.urandom(length) for _ in itertools.repeat(0))

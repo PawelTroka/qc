@@ -88,7 +88,7 @@ class WithTrickySet(Arbitrary):
 class Int(WithTrickySet):
   """An arbitrary integer."""
 
-  def __init__(self, low=(-sys.maxint-1), high=sys.maxint):
+  def __init__(self, low=(-sys.maxsize-1), high=sys.maxsize):
     """Generate integers between optional low (inclusive) and high (exclusive) bounds."""
     self.low, self.high = int(low), int(high)
     tricky = [x for x in (0, 1, -1, 65536, low, high - 1) if low <= x < high]
@@ -123,7 +123,7 @@ class Float(WithTrickySet):
 class RandomString(WithTrickySet):
   """An arbitrary string of random bytes."""
 
-  def __init__(self, maxlen=sys.maxint):
+  def __init__(self, maxlen=sys.maxsize):
     self.short, self.long = Int(0, min(maxlen, 10)), Int(0, min(maxlen, 500))
     tricky = ['', '\0', '\xc2', '\0foo']
     WithTrickySet.__init__(self, tricky)
